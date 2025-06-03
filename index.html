@@ -1,0 +1,318 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>INLWY | Config Generator</title>
+    <link rel="icon" href="https://img5.pic.in.th/file/secure-sv1/e880b1f39d2380db280cf1f3754efabe82d35f60_full.jpg" type="image/x-icon">
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+    <style>
+        body {
+            font-family: 'Roboto', sans-serif;
+            background-image: url('https://img5.pic.in.th/file/secure-sv1/luna_nebo_rozovyj_168186_1920x1080.jpg');
+            background-size: cover;
+            background-position: center;
+            padding: 20px;
+            color: white;
+        }
+
+        .container {
+            background: rgba(255, 255, 255, 0.2);
+            padding: 30px;
+            border-radius: 8px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+            max-width: 900px;
+            margin: 0 auto;
+            color: #fff;
+        }
+
+        h1 {
+            margin-bottom: 20px;
+            font-size: 24px;
+            text-align: center;
+            background: linear-gradient(90deg, #ff69b4, #ff77ff);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            font-weight: bold;
+        }
+
+        .form-group label {
+            font-weight: 500;
+            background: linear-gradient(90deg, #ff69b4, #ff77ff);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            text-shadow: 1px 1px 0px rgba(0, 0, 0, 0.4);
+        }
+
+        .config-entry {
+            position: relative;
+            background: rgba(255, 228, 225, 0.3);
+            border: 1px solid #ddd;
+            border-radius: 4px;
+            padding: 20px;
+            margin-bottom: 10px;
+        }
+
+        .config-entry button {
+            position: absolute;
+            top: 10px;
+            right: 10px;
+            background-color: #e74c3c;
+            color: white;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+            transition: background-color 0.3s ease;
+        }
+
+        .config-entry button:hover {
+            background-color: #c0392b;
+        }
+
+        pre {
+            background: rgba(255, 255, 255, 0.1);
+            color: #000;
+            border: 2px solid #C66A7F;
+            padding: 20px;
+            border-radius: 8px;
+            margin-top: 20px;
+            overflow-x: auto;
+            font-size: 14px;
+        }
+
+        .btn-primary {
+            background-color: #FFB0E8;
+            border-color: #FFB0E8;
+        }
+
+        .btn-primary:hover {
+            background-color: #FF69D3;
+            border-color: #FF69D3;
+        }
+
+        h3 {
+          font-weight: bold;
+          background: linear-gradient(180deg, #ffffff, #ff69b4);
+          -webkit-background-clip: text;
+          -webkit-text-fill-color: transparent;
+        }
+    </style>
+</head>
+
+<body>
+    <div class="container">
+        <h1>Config Generator</h1>
+        <div class="form-group">
+            <label for="config-type">Config Type:</label>
+            <select class="form-control" id="config-type" onchange="changeConfigType()">
+                <option value="type1">Streaming</option>
+                <option value="type2">Custom Status</option>
+            </select>
+        </div>
+
+        <form id="config-form">
+            <div class="form-group">
+                <label for="city">City:</label>
+                <input type="text" class="form-control" id="city" name="city" value="Sydney" placeholder="Default Sydney">
+            </div>
+            <div class="form-group">
+                <label for="delay">Delay (seconds):</label>
+                <input type="number" class="form-control" id="delay" name="delay" value="5" placeholder="Minimum 5 seconds, less than this will cause bugs">
+            </div>
+
+            <div id="type1-config" style="display: none;">
+                <div class="form-group">
+                    <label for="watch-url">Watch URL:</label>
+                    <textarea class="form-control" id="watch-url" name="watch-url" placeholder="Youtube or Twitch link is fine"></textarea>
+                </div>
+                <div class="form-group">
+                    <label for="timestamp">Timestamp:</label>
+                    <input type="text" class="form-control" id="timestamp" name="timestamp" value="{start}">
+                </div>
+                <div class="form-group">
+                    <label for="text-1">Text 1:</label>
+                    <textarea class="form-control" id="text-1" name="text-1"></textarea>
+                </div>
+                <div class="form-group">
+                    <label for="text-2">Text 2:</label>
+                    <textarea class="form-control" id="text-2" name="text-2"></textarea>
+                </div>
+                <div class="form-group">
+                    <label for="text-3">Text 3:</label>
+                    <textarea class="form-control" id="text-3" name="text-3"></textarea>
+                </div>
+                <div class="form-group">
+                    <label for="bigimg">Big Image:</label>
+                    <textarea class="form-control" id="bigimg" name="bigimg"></textarea>
+                </div>
+                <div class="form-group">
+                    <label for="smallimg">Small Image:</label>
+                    <textarea class="form-control" id="smallimg" name="smallimg"></textarea>
+                </div>
+                <div id="button-1-entries">
+                    <h3>Button 1:</h3>
+                    <div class="form-group config-entry">
+                        <label>Button Name:</label>
+                        <input type="text" class="form-control button-name" value="">
+                        <label>Button URL:</label>
+                        <input type="text" class="form-control button-url" value="">
+                        <button type="button" class="btn btn-danger btn-sm" onclick="removeEntry(this)">delete</button>
+                    </div>
+                </div>
+                <button type="button" class="btn btn-primary" onclick="addEntry('button-1')">Add button 1</button>
+
+                <div id="button-2-entries">
+                    <h3>Button 2:</h3>
+                    <div class="form-group config-entry">
+                        <label>Button Name:</label>
+                        <input type="text" class="form-control button-name" value="">
+                        <label>Button URL:</label>
+                        <input type="text" class="form-control button-url" value="">
+                        <button type="button" class="btn btn-danger btn-sm" onclick="removeEntry(this)">delete</button>
+                    </div>
+                </div>
+                <button type="button" class="btn btn-primary" onclick="addEntry('button-2')">Add button 2</button>
+            </div>
+
+            <div id="type2-config" style="display: none;">
+                <div id="emoji-text-entries">
+                    <h3>Status:</h3>
+                    <div class="form-group config-entry">
+                        <label>Emoji:</label>
+                        <textarea class="form-control emoji">🌺</textarea>
+                        <label>Text:</label>
+                        <textarea class="form-control text">Text 1</textarea>
+                        <button type="button" class="btn btn-danger btn-sm" onclick="removeEntry(this)">delete</button>
+                    </div>
+                </div>
+                <button type="button" class="btn btn-primary" onclick="addEntry('emoji-text')">Add status</button>
+            </div>
+        </form>
+        <div class="buttons mt-4">
+            <hr>
+            <button type="button" class="btn btn-secondary btn-copy" onclick="copyConfig()">Copy</button>
+        </div>
+        <pre id="output" class="mt-4"></pre>
+    </div>
+
+    <script>
+        document.getElementById('config-form').addEventListener('input', generateConfig);
+
+        function changeConfigType() {
+            const type = document.getElementById('config-type').value;
+            document.getElementById('type1-config').style.display = type === 'type1' ? 'block' : 'none';
+            document.getElementById('type2-config').style.display = type === 'type2' ? 'block' : 'none';
+            generateConfig();
+        }
+
+        function addEntry(type) {
+            const container = document.getElementById(`${type}-entries`);
+            const newEntry = document.createElement('div');
+            newEntry.className = 'form-group config-entry';
+            if (type === 'emoji-text') {
+                newEntry.innerHTML = `
+                    <label>Emoji:</label>
+                    <textarea class="form-control emoji"></textarea>
+                    <label>Text:</label>
+                    <textarea class="form-control text"></textarea>
+                    <button type="button" class="btn btn-danger btn-sm" onclick="removeEntry(this)">delete</button>
+                `;
+            } else {
+                newEntry.innerHTML = `
+                    <label>Button Name:</label>
+                    <input type="text" class="form-control button-name">
+                    <label>Button URL:</label>
+                    <input type="text" class="form-control button-url">
+                    <button type="button" class="btn btn-danger btn-sm" onclick="removeEntry(this)">delete</button>
+                `;
+            }
+            container.appendChild(newEntry);
+        }
+
+        function removeEntry(button) {
+            button.parentElement.remove();
+            generateConfig();
+        }
+
+        function generateConfig() {
+            const form = document.getElementById('config-form');
+            const type = document.getElementById('config-type').value;
+            let config = {};
+
+            if (type === 'type1') {
+                const button1Entries = document.querySelectorAll('#button-1-entries .config-entry');
+                const button2Entries = document.querySelectorAll('#button-2-entries .config-entry');
+
+                const button1Array = Array.from(button1Entries).map(entry => ({
+                    name: entry.querySelector('.button-name').value,
+                    url: entry.querySelector('.button-url').value
+                }));
+
+                const button2Array = Array.from(button2Entries).map(entry => ({
+                    name: entry.querySelector('.button-name').value,
+                    url: entry.querySelector('.button-url').value
+                }));
+
+                config = {
+                    setup: {
+                        city: form.city.value || "Sydney",
+                        delay: parseInt(form.delay.value) || 5
+                    },
+                    config: {
+                        options: {
+                            "watch-url": form['watch-url'].value.split('\n').map(url => url.trim()).filter(url => url),
+                            timestamp: form.timestamp.value
+                        },
+                        "text-1": form['text-1'].value.split('\n').map(text => text.trim()).filter(text => text),
+                        "text-2": form['text-2'].value.split('\n').map(text => text.trim()).filter(text => text),
+                        "text-3": form['text-3'].value.split('\n').map(text => text.trim()).filter(text => text),
+                        bigimg: form.bigimg.value.split('\n').map(img => img.trim()).filter(img => img),
+                        smallimg: form.smallimg.value.split('\n').map(img => img.trim()).filter(img => img),
+                        "button-1": button1Array,
+                        "button-2": button2Array
+                    }
+                };
+            } else if (type === 'type2') {
+                const emojiTextEntries = document.querySelectorAll('#emoji-text-entries .config-entry');
+
+                const emojiTextArray = Array.from(emojiTextEntries).map(entry => {
+                    const emojiRaw = entry.querySelector('.emoji').value;
+                    const textRaw = entry.querySelector('.text').value;
+                    const emojiList = emojiRaw.split('\n').map(e => e.trim()).filter(Boolean);
+                    const textList = textRaw.split('\n').map(t => t.trim()).filter(Boolean);
+                    return {
+                        emoji: emojiList.length === 1 ? emojiList[0] : emojiList,
+                        text: textList.length === 1 ? textList[0] : textList
+                    };
+                });
+
+                config = {
+                    setup: {
+                        city: form.city.value || "Sydney",
+                        delay: parseInt(form.delay.value) || 5
+                    },
+                    config: emojiTextArray
+                };
+            }
+
+            document.getElementById('output').textContent = JSON.stringify(config, null, 2);
+        }
+
+        function copyConfig() {
+            const outputElement = document.getElementById('output');
+            const textToCopy = outputElement.textContent;
+
+            navigator.clipboard.writeText(textToCopy).then(() => {
+                alert('Settings copied successfully');
+            }).catch(err => {
+                console.error('Unable to copy text:', err);
+            });
+        }
+
+        // Initialize the form with the default config type
+        changeConfigType();
+    </script>
+</body>
+
+</html>
