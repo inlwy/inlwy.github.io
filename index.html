@@ -306,7 +306,7 @@
                 };
             }
 
-            document.getElementById('output').textContent = customFormatJSON(config);
+            document.getElementById('output').textContent = JSON.stringify(config, null, 4);
         }
 
         function copyConfig() {
