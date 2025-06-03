@@ -236,7 +236,7 @@
         }
 
         function customFormatJSON(obj) {
-            return JSON.stringify(obj, null, 4)
+            return JSON.stringify(obj, null, 2)
                 .split('\n')
                 .map(line => {
                     if (/^\s*[{\[\]}]\s*$/.test(line)) return line;
