@@ -235,6 +235,16 @@
             generateConfig();
         }
 
+        function customFormatJSON(obj) {
+            return JSON.stringify(obj, null, 4)
+                .split('\n')
+                .map(line => {
+                    if (/^\s*[{\[\]}]\s*$/.test(line)) return line;
+                    return '    ' + line;
+                })
+                .join('\n');
+        }
+        
         function generateConfig() {
             const form = document.getElementById('config-form');
             const type = document.getElementById('config-type').value;
@@ -296,7 +306,7 @@
                 };
             }
 
-            document.getElementById('output').textContent = JSON.stringify(config, null, 2);
+            document.getElementById('output').textContent = customFormatJSON(config);
         }
 
         function copyConfig() {
