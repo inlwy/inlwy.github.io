@@ -38,13 +38,24 @@
             text-shadow: 1px 1px 0px rgba(0, 0, 0, 0.5);
         }
 
+        h1 small {
+            display: block;
+            font-size: 12px;
+            font-weight: normal;
+            margin-top: 5px;
+            text-shadow: 1px 1px 0 rgba(0, 0, 0, 0.4);
+            background: inherit;
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+
         .form-group label {
             font-weight: 500;
             background-image: linear-gradient(180deg, #ff8ee6 0, #f17ee0 25%, #d86cd8 50%, #be5bd0 75%, #a44fcb 100%);
             -webkit-background-clip: text;
             -webkit-text-fill-color: transparent;
             font-weight: bold;
-            text-shadow: 1px 1px 0px rgba(0, 0, 0, 0.5);
+            text-shadow: 1px 1px 0px rgba(0, 0, 0, 0.1);
         }
 
         .config-entry {
@@ -123,7 +134,7 @@
 
 <body>
     <div class="container">
-        <h1>Config Generator</h1>
+        <h1>Config Generator<br><small>by in love w/ you 🤍</small></h1>
         <div class="form-group">
             <label for="config-type">Config Type:</label>
             <select class="form-control" id="config-type" onchange="changeConfigType()">
