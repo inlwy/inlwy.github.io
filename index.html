@@ -121,13 +121,7 @@
             overflow-x: auto;
             font-size: 14px;
             font-weight: bold;
-        
-            background-clip: padding-box;
-            
-            background-image: linear-gradient(60deg, #ff939d 0, #ff869b 16.67%, #f57997 33.33%, #d86c8f 50%, #bb5f85 66.67%, #a2557c 83.33%, #8c4c73 100%);
-            -webkit-background-clip: text;
-            -webkit-text-fill-color: transparent;
-            color: transparent;
+            color: #fff;
         }
     </style>
 </head>
@@ -362,6 +356,32 @@
                     },
                     config: emojiTextArray
                 };
+
+                const outputDiv = document.getElementById('output');
+    outputDiv.innerHTML = ''; // очистить
+
+    emojiTextArray.forEach(item => {
+        const line = document.createElement('div');
+
+        const emojiSpan = document.createElement('span');
+        emojiSpan.textContent = Array.isArray(item.emoji) ? item.emoji.join(' ') : item.emoji;
+        emojiSpan.style = 'margin-right: 8px;'; // отступ справа
+
+        const textSpan = document.createElement('span');
+        textSpan.textContent = Array.isArray(item.text) ? item.text.join(' ') : item.text;
+        // Градиентный текст для текста
+        textSpan.style = `
+            background: linear-gradient(60deg, #ff939d 0%, #ff869b 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            font-weight: bold;
+        `;
+
+        line.appendChild(emojiSpan);
+        line.appendChild(textSpan);
+
+        outputDiv.appendChild(line);
+    });
             }
 
             document.getElementById('output').textContent = JSON.stringify(config, null, 4);
