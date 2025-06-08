@@ -259,8 +259,37 @@
                 @focusedonher
             </a> ❤︎
         </small>
+        <div style="margin-top: 20px;">
+            <a href="https://example.com/icon1" target="_blank" class="icon-link">
+                <img src="https://i.ibb.co/7tJ89492/discord-59687591.png" alt="Icon 1" class="icon-img">
+            </a>
+            <a href="https://example.com/icon2" target="_blank" class="icon-link">
+                <img src="https://i.ibb.co/7tJ89492/discord-59687591.png" alt="Icon 2" class="icon-img">
+            </a>
+            <a href="https://example.com/icon3" target="_blank" class="icon-link">
+                <img src="https://i.ibb.co/7tJ89492/discord-59687591.png" alt="Icon 3" class="icon-img">
+            </a>
+        </div>
     </div>
 
+    <style>
+        .icon-link {
+            display: inline-block;
+            margin: 0 10px;
+            transition: transform 0.3s ease;
+        }
+    
+        .icon-img {
+            width: 32px;
+            height: 32px;
+            transition: transform 0.3s ease;
+        }
+    
+        .icon-link:hover .icon-img {
+            transform: scale(1.2);
+        }
+    </style>
+    
     <script>
         document.getElementById('config-form').addEventListener('input', generateConfig);
 
